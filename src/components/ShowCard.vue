@@ -1,16 +1,27 @@
 <template>
-  <article>
-    <!-- color-header -->
+  <article class="card" :style="{ borderTop: `4px solid ${movie.color}` }">
+    <!-- image -->
+    <img :src="movie.image" alt="movie.title" class="cover" />
+    <!-- description -->
     <div>
-      <small>{{ movie.color }}</small>
-    </div>
-    <!-- card body -->
-    <div>
-      <!-- image -->
-      <div></div>
-      <!-- description -->
+      <h1 class="info__title">{{ movie.title }}</h1>
+      <p class="info__description">
+        {{ movie.description }}
+      </p>
+      <p class="info__year">{{ movie.releaseDate }}</p>
+      <ul class="info__tags">
+        <li v-for="tag in movie.tags">{{ tag }}</li>
+      </ul>
+
+      <p class="info__notes">{{ movie.notes }}</p>
+
       <div>
-        <h1>{{ movie.title }}</h1>
+        <span v-for="star in 5" :key="star">
+          <font-awesome-icon
+            :icon="['fas', 'star']"
+            :class="star <= movie.rating ? 'full-star' : ''"
+          />
+        </span>
       </div>
     </div>
   </article>
@@ -44,6 +55,7 @@ defineProps<{ movie: Movie }>()
   height: 100%;
   object-fit: cover;
   border-radius: 5px;
+  max-width: 100%;
 }
 
 /* Delete button */
@@ -91,6 +103,7 @@ defineProps<{ movie: Movie }>()
 
 .info__tags {
   display: flex;
+  justify-content: flex-start;
   gap: 5px;
   align-items: center;
   list-style: none;
@@ -130,3 +143,8 @@ defineProps<{ movie: Movie }>()
   color: gold;
 }
 </style>
+
+<!--
+
+
+-->

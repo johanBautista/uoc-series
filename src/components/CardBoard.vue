@@ -1,6 +1,7 @@
 <template>
-  <small>_CardBoard!</small>
-  <ShowCard v-for="movie in showList" :key="movie.id" :movie="movie" />
+  <div class="board">
+    <ShowCard v-for="movie in showList" :key="movie.id" :movie="movie" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -18,5 +19,6 @@ const showList: Movie[] = moviesData
   grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
   grid-auto-rows: min-content;
   gap: 20px;
+  /*  */
 }
 </style>
