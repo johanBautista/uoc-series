@@ -1,5 +1,6 @@
 <template>
-  <h1>Hello World Component!</h1>
+  <main>
+    <h1>404 NOT FOUND _ PAGE</h1>
+  </main>
 </template>
-
 <script setup lang="ts"></script>
