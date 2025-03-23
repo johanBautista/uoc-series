@@ -1,5 +1,0 @@
-<template>
-  <h1>Hello World Component!</h1>
-</template>
-
-<script setup lang="ts"></script>
