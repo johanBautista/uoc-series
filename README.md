@@ -59,3 +59,35 @@ pnpm test:e2e
 ```sh
 pnpm lint
 ```
+
+## File structure
+
+```sh
+# uoc-series
+src
+│── assets/
+│   ├── icons/
+│   ├── styles/
+│   │   ├── base/
+│   │   │   ├── base.css
+│   │   ├── components/
+│   │   │   ├── _buttons.css
+│   │   │   ├── _cards.css
+│   │   ├── pages/
+│   │   │   ├── _home.css
+│   │   │   ├── _show-list.css
+│   ├── logo.png
+│   ├── main.css
+│── components/
+│   ├── __tests__
+│   ├── HelloWorld.vue
+│── router/
+│   ├── index.ts
+│── store/
+│   ├── counter.ts
+│── views/
+│   ├── HomeView.vue
+│   ├── NotFoundView.vue
+│── App.vue
+│── main.ts
+```
