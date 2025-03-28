@@ -4,7 +4,7 @@
     <img :src="movie.image" alt="movie.title" class="cover" />
     <!-- description -->
     <div>
-      <h1 class="info__title">{{ movie.title }}</h1>
+      <h2 class="info__title">{{ movie.title }}</h2>
       <p class="info__description">
         {{ movie.description }}
       </p>
@@ -13,16 +13,16 @@
         <li v-for="tag in movie.tags">{{ tag }}</li>
       </ul>
 
-      <p class="info__notes">{{ movie.notes }}</p>
+      <blockquote class="info__notes">{{ movie.notes }}</blockquote>
 
-      <div>
+      <section class="info__rating">
         <span v-for="star in 5" :key="star">
           <font-awesome-icon
             :icon="['fas', 'star']"
             :class="star <= movie.rating ? 'full-star' : ''"
           />
         </span>
-      </div>
+      </section>
     </div>
   </article>
 </template>
@@ -42,7 +42,7 @@ defineProps<{ movie: Movie }>()
   gap: 10px;
   padding: 10px;
   border-radius: 5px;
-  color: rgb(41, 38, 38);
+  color: #292626;
   border-top: 10px outset;
   position: relative;
   box-shadow: 10px 10px 11px -6px rgba(0, 0, 0, 0.12);

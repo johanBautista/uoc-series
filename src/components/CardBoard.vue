@@ -19,6 +19,7 @@ const showList: Movie[] = moviesData
   grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
   grid-auto-rows: min-content;
   gap: 20px;
+  margin: 2rem;
   /*  */
 }
 </style>

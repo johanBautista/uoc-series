@@ -1,9 +1,9 @@
 <template>
-  <header>
+  <!-- <header>
     <nav>
       <RouterLink to="/">Home</RouterLink>
     </nav>
-  </header>
+  </header> -->
 
   <RouterView />
 </template>
