@@ -32,12 +32,7 @@
 
       <label class="card-form__label">
         Tags (comma separated):
-        <input
-          v-model="tags"
-          type="text"
-          class="card-form__input"
-          placeholder="e.g. Action, Drama"
-        />
+        <input v-model="tags" type="text" class="card-form__input" placeholder="Action, Drama..." />
       </label>
 
       <label class="card-form__label">

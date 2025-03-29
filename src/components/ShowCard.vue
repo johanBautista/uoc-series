@@ -19,7 +19,7 @@
         <span v-for="star in 5" :key="star">
           <font-awesome-icon
             :icon="['fas', 'star']"
-            :class="star <= movie.rating ? 'full-star' : ''"
+            :class="star <= Math.floor(movie.rating) ? 'full-star' : ''"
           />
         </span>
       </section>
@@ -34,7 +34,6 @@ defineProps<{ movie: Movie }>()
 </script>
 
 <style scoped>
-/* General styles */
 .card {
   display: flex;
   flex-direction: row;
@@ -49,7 +48,6 @@ defineProps<{ movie: Movie }>()
   height: 270px;
 }
 
-/* Image */
 .cover {
   flex: 25% 0 0;
   height: 100%;
@@ -58,7 +56,6 @@ defineProps<{ movie: Movie }>()
   max-width: 100%;
 }
 
-/* Delete button */
 .delete-btn {
   position: absolute;
   top: 0;
@@ -77,7 +74,6 @@ defineProps<{ movie: Movie }>()
   border: none;
 }
 
-/* Info */
 .info__title {
   font-size: 1rem;
   display: -webkit-box;
@@ -138,13 +134,7 @@ defineProps<{ movie: Movie }>()
   color: rgb(92, 92, 92);
 }
 
-/* Stars */
 .full-star {
   color: gold;
 }
 </style>
-
-<!--
-
-
--->

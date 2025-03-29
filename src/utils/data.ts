@@ -6,7 +6,7 @@ export const moviesData: Movie[] = [
     description:
       'Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world where people often prove more wicked than beasts.',
     image: 'https://static.posters.cz/image/1300/posters/the-witcher-season-2-group-i122524.jpg',
-    rating: 3,
+    rating: 3.1,
     tags: ['Action', 'Adventure', 'Drama', 'Fantasy'],
     notes: 'Season 1',
     color: '#FA8072',
@@ -18,7 +18,7 @@ export const moviesData: Movie[] = [
     description:
       'A high school chemistry teacher turned meth maker partners with a former student to secure his family’s future.',
     image: 'https://storage.googleapis.com/pod_public/1300/251700.jpg',
-    rating: 5,
+    rating: 4.4,
     tags: ['Crime', 'Drama', 'Thriller'],
     notes: 'Season 5',
     color: '#DAF7A6',
@@ -31,7 +31,7 @@ export const moviesData: Movie[] = [
       'Stranger Things is a supernatural action-drama TV series set in the fictional town of Hawkins, Indiana, inspired by 80s pop culture and Stephen King works.',
     image:
       'https://static.posters.cz/image/1300/posters/stranger-things-russian-teaser-i133710.jpg',
-    rating: 4,
+    rating: 4.9,
     tags: ['Drama', 'Fantasy', 'Mystery', 'Sci-Fi'],
     notes: 'Season 3',
     color: '#FFC300',
