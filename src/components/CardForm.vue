@@ -50,29 +50,37 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
 
-const title = ref('')
-const description = ref('')
-const imageUrl = ref('')
-const rating = ref(0)
-const tags = ref('')
-const notes = ref('')
-const color = ref('#000000')
-
-const submitForm = () => {
-  const newShow = {
-    title: title.value,
-    description: description.value,
-    imageUrl: imageUrl.value,
-    rating: rating.value,
-    tags: tags.value.split(',').map((tag) => tag.trim()),
-    notes: notes.value,
-    color: color.value,
-  }
-  console.log('New Show:', newShow)
-}
+export default defineComponent({
+  name: 'CardForm',
+  data() {
+    return {
+      title: '',
+      description: '',
+      imageUrl: '',
+      rating: 0,
+      tags: '',
+      notes: '',
+      color: '#000000',
+    }
+  },
+  methods: {
+    submitForm() {
+      const newShow = {
+        title: this.title,
+        description: this.description,
+        imageUrl: this.imageUrl,
+        rating: this.rating,
+        tags: this.tags.split(',').map((tag) => tag.trim()),
+        notes: this.notes,
+        color: this.color,
+      }
+      console.log('New Show:', newShow)
+    },
+  },
+})
 </script>
 
 <style scoped>

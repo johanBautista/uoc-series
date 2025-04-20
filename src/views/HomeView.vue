@@ -7,11 +7,23 @@
     <CardForm />
   </main>
 </template>
-<script setup lang="ts">
+
+<script lang="ts">
+import { defineComponent } from 'vue'
 import CardBoard from '@/components/CardBoard.vue'
 import CardForm from '@/components/CardForm.vue'
 import FilterBar from '@/components/FilterBar.vue'
+
+export default defineComponent({
+  name: 'HomeView',
+  components: {
+    CardBoard,
+    CardForm,
+    FilterBar,
+  },
+})
 </script>
+
 <style scoped>
 main {
   display: flex;

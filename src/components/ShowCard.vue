@@ -27,10 +27,19 @@
   </article>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent } from 'vue'
 import type { Movie } from '@/utils/interface'
 
-defineProps<{ movie: Movie }>()
+export default defineComponent({
+  name: 'MovieCard',
+  props: {
+    movie: {
+      type: Object as () => Movie,
+      required: true,
+    },
+  },
+})
 </script>
 
 <style scoped>

@@ -4,12 +4,23 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import type { Movie } from '@/utils/interface'
+<script lang="ts">
+import { defineComponent } from 'vue'
 import ShowCard from './ShowCard.vue'
+import type { Movie } from '@/utils/interface'
 import { moviesData } from '@/utils/data'
 
-const showList: Movie[] = moviesData
+export default defineComponent({
+  name: 'CardBoard',
+  components: {
+    ShowCard,
+  },
+  data() {
+    return {
+      showList: moviesData as Movie[],
+    }
+  },
+})
 </script>
 
 <style scoped>

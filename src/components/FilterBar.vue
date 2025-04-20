@@ -58,35 +58,41 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
 
-const search = ref('')
-const selectedGenre = ref('')
-const rating = ref(0)
-const sortBy = ref('name')
-const sortDirection = ref('asc')
-
-const genres = [
-  'Action',
-  'Adventure',
-  'Comedy',
-  'Drama',
-  'Fantasy',
-  'Horror',
-  'Mystery',
-  'Romance',
-  'Sci-Fi',
-  'Thriller',
-]
-
-const clearInput = () => {
-  search.value = ''
-}
-
-const addNewShow = () => {
-  console.log('Añadir nueva película', search.value)
-}
+export default defineComponent({
+  name: 'MovieFilter',
+  data() {
+    return {
+      search: '',
+      selectedGenre: '',
+      rating: 0,
+      sortBy: 'name',
+      sortDirection: 'asc',
+      genres: [
+        'Action',
+        'Adventure',
+        'Comedy',
+        'Drama',
+        'Fantasy',
+        'Horror',
+        'Mystery',
+        'Romance',
+        'Sci-Fi',
+        'Thriller',
+      ],
+    }
+  },
+  methods: {
+    clearInput() {
+      this.search = ''
+    },
+    addNewShow() {
+      console.log('Añadir nueva película', this.search)
+    },
+  },
+})
 </script>
 
 <style scoped>
