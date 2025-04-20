@@ -3,21 +3,21 @@
     <FilterBar />
   </header>
   <main>
-    <CardBoard />
+    <ListMovies />
     <CardForm />
   </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import CardBoard from '@/components/CardBoard.vue'
+import ListMovies from '@/components/ListMovies.vue'
 import CardForm from '@/components/CardForm.vue'
 import FilterBar from '@/components/FilterBar.vue'
 
 export default defineComponent({
   name: 'HomeView',
   components: {
-    CardBoard,
+    ListMovies,
     CardForm,
     FilterBar,
   },

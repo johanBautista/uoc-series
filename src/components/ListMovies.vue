@@ -1,19 +1,19 @@
 <template>
   <div class="board">
-    <ShowCard v-for="movie in showList" :key="movie.id" :movie="movie" />
+    <CardMovie v-for="movie in showList" :key="movie.id" :movie="movie" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import ShowCard from './ShowCard.vue'
+import CardMovie from './CardMovie.vue'
 import type { Movie } from '@/utils/interface'
 import { moviesData } from '@/utils/data'
 
 export default defineComponent({
   name: 'CardBoard',
   components: {
-    ShowCard,
+    CardMovie,
   },
   data() {
     return {
