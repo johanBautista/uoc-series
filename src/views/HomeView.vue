@@ -1,18 +1,19 @@
 <template>
   <header>
-    <FilterBar />
+    <FilterBar @showForm="toggleForm" :showButtonForm="!isActiveForm" />
   </header>
   <main>
     <ListMovies />
-    <CardForm />
+    <CardForm v-show="isActiveForm" @submit="handleSubmit" />
   </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import ListMovies from '@/components/ListMovies.vue'
 import CardForm from '@/components/CardForm.vue'
 import FilterBar from '@/components/FilterBar.vue'
+import type { Movie } from '../utils/interface'
 
 export default defineComponent({
   name: 'HomeView',
@@ -20,6 +21,20 @@ export default defineComponent({
     ListMovies,
     CardForm,
     FilterBar,
+  },
+  data() {
+    return {
+      isActiveForm: false,
+    }
+  },
+  methods: {
+    toggleForm() {
+      this.isActiveForm = !this.isActiveForm
+    },
+    handleSubmit(newShow: Movie) {
+      console.log('New Show handleSubmit:', newShow)
+      this.isActiveForm = false
+    },
   },
 })
 </script>

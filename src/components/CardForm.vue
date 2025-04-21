@@ -4,17 +4,20 @@
     <form @submit.prevent="submitForm" class="card-form__form">
       <label class="card-form__label">
         Title:
-        <input v-model="title" type="text" class="card-form__input" required />
+        <input v-model="title" type="text" class="card-form__input" />
+        <div v-if="errors.title" class="card-form__error">{{ errors.title }}</div>
       </label>
 
       <label class="card-form__label">
         Description:
-        <textarea v-model="description" class="card-form__textarea" required></textarea>
+        <textarea v-model="description" class="card-form__textarea"></textarea>
+        <div v-if="errors.description" class="card-form__error">{{ errors.description }}</div>
       </label>
 
       <label class="card-form__label">
         Image URL:
-        <input v-model="imageUrl" type="url" class="card-form__input" required />
+        <input v-model="imageUrl" type="url" class="card-form__input" />
+        <div v-if="errors.imageUrl" class="card-form__error">{{ errors.imageUrl }}</div>
       </label>
 
       <label class="card-form__label">
@@ -26,18 +29,20 @@
           max="5"
           step="0.5"
           class="card-form__input"
-          required
         />
+        <div v-if="errors.rating" class="card-form__error">{{ errors.rating }}</div>
       </label>
 
       <label class="card-form__label">
         Tags (comma separated):
         <input v-model="tags" type="text" class="card-form__input" placeholder="Action, Drama..." />
+        <div v-if="errors.tags" class="card-form__error">{{ errors.tags }}</div>
       </label>
 
       <label class="card-form__label">
         Notes:
         <textarea v-model="notes" class="card-form__textarea"></textarea>
+        <div v-if="errors.notes" class="card-form__error">{{ errors.notes }}</div>
       </label>
 
       <label class="card-form__label">
@@ -64,10 +69,82 @@ export default defineComponent({
       tags: '',
       notes: '',
       color: '#000000',
+      errors: {
+        title: '',
+        description: '',
+        imageUrl: '',
+        rating: '',
+        tags: '',
+        notes: '',
+      },
     }
   },
+  computed: {
+    formError() {
+      return Object.values(this.errors).some((error) => error !== '')
+    },
+    isFormValid(): boolean {
+      return (
+        this.title.trim() &&
+        this.description.trim() &&
+        this.imageUrl.trim() &&
+        this.rating >= 0 &&
+        this.rating <= 5 &&
+        this.tags.trim() &&
+        this.color
+      )
+    },
+  },
   methods: {
+    validationForm() {
+      let isValid = true
+
+      // Reset all errors
+      this.errors = {
+        title: '',
+        description: '',
+        imageUrl: '',
+        rating: '',
+        tags: '',
+        notes: '',
+      }
+
+      if (!this.title.trim()) {
+        this.errors.title = 'El título es obligatorio.'
+        isValid = false
+      }
+
+      if (!this.description.trim()) {
+        this.errors.description = 'La descripción es obligatoria.'
+        isValid = false
+      }
+
+      if (!this.imageUrl.trim()) {
+        this.errors.imageUrl = 'La URL de la imagen es obligatoria.'
+        isValid = false
+      }
+
+      if (!this.rating || this.rating < 0 || this.rating > 5) {
+        this.errors.rating = 'El rating debe estar entre 0 y 5.'
+        isValid = false
+      }
+
+      if (!this.tags.trim()) {
+        this.errors.tags = 'Introduce al menos una etiqueta.'
+        isValid = false
+      }
+
+      return isValid
+    },
+
     submitForm() {
+      const isValid = this.validationForm()
+
+      if (!isValid) {
+        alert('Por favor corrige los errores del formulario.')
+        return
+      }
+
       const newShow = {
         title: this.title,
         description: this.description,
@@ -78,6 +155,18 @@ export default defineComponent({
         color: this.color,
       }
       console.log('New Show:', newShow)
+      this.$emit('submit', newShow)
+      this.resetForm()
+    },
+
+    resetForm() {
+      this.title = ''
+      this.description = ''
+      this.imageUrl = ''
+      this.rating = 0
+      this.tags = ''
+      this.notes = ''
+      this.color = '#000000'
     },
   },
 })
@@ -144,5 +233,15 @@ export default defineComponent({
 
 .card-form__button:hover {
   background-color: #5740d8;
+}
+.card-form__button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.card-form__error {
+  color: red;
+  font-size: 0.8rem;
 }
 </style>

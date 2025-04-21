@@ -11,7 +11,11 @@
       <button class="movie-filter__button movie-filter__button--clear" @click="clearInput">
         Clear
       </button>
-      <button class="movie-filter__button movie-filter__button--add" @click="addNewShow">
+      <button
+        v-show="showButtonForm"
+        class="movie-filter__button movie-filter__button--add"
+        @click="showForm"
+      >
         Add New Show
       </button>
     </div>
@@ -84,12 +88,21 @@ export default defineComponent({
       ],
     }
   },
+  props: {
+    showButtonForm: {
+      type: Boolean,
+      default: true,
+    },
+  },
   methods: {
     clearInput() {
       this.search = ''
     },
     addNewShow() {
       console.log('Añadir nueva película', this.search)
+    },
+    showForm() {
+      this.$emit('showForm', true)
     },
   },
 })

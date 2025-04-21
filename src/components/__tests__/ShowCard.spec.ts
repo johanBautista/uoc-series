@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import CardBoard from '@/components/CardBoard.vue'
-import ShowCard from '../ShowCard.vue'
+import ListMovies from '@/components/ListMovies.vue'
+import CardMovie from '../CardMovie.vue'
 
-vi.mock('../ShowCard.vue', () => ({
+vi.mock('../CardMovie.vue', () => ({
   default: {
-    name: 'ShowCard',
+    name: 'CardMovie',
     props: ['movie'],
     template: '<div class="show-card">{{ movie.title }}</div>',
   },
@@ -44,9 +44,9 @@ const mockMoviesData = [
   },
 ]
 
-describe('CardBoard.vue', () => {
+describe('ListMovies.vue', () => {
   it('renders the correct number of ShowCard components', () => {
-    const wrapper = mount(CardBoard, {
+    const wrapper = mount(ListMovies, {
       global: {
         mocks: {
           moviesData: mockMoviesData,
@@ -54,7 +54,7 @@ describe('CardBoard.vue', () => {
       },
     })
 
-    const showCards = wrapper.findAllComponents(ShowCard)
+    const showCards = wrapper.findAllComponents(CardMovie)
     expect(showCards).toHaveLength(mockMoviesData.length)
   })
 })
