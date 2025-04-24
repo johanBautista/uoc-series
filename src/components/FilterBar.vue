@@ -12,9 +12,9 @@
         Clear
       </button>
       <button
-        v-show="showButtonForm"
+        v-show="!ui.isFormActive"
         class="movie-filter__button movie-filter__button--add"
-        @click="showForm"
+        @click="ui.showForm()"
       >
         Add New Show
       </button>
@@ -64,6 +64,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useUiStore } from '@/stores/counter'
 
 export default defineComponent({
   name: 'MovieFilter',
@@ -88,11 +89,8 @@ export default defineComponent({
       ],
     }
   },
-  props: {
-    showButtonForm: {
-      type: Boolean,
-      default: true,
-    },
+  computed: {
+    ui: () => useUiStore(),
   },
   methods: {
     clearInput() {
@@ -100,9 +98,6 @@ export default defineComponent({
     },
     addNewShow() {
       console.log('Añadir nueva película', this.search)
-    },
-    showForm() {
-      this.$emit('showForm', true)
     },
   },
 })

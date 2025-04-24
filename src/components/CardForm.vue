@@ -4,19 +4,33 @@
     <form @submit.prevent="submitForm" class="card-form__form">
       <label class="card-form__label">
         Title:
-        <input v-model="title" type="text" class="card-form__input" />
+        <input
+          v-model="title"
+          type="text"
+          class="card-form__input"
+          @blur="validateFieldHandler('title')"
+        />
         <div v-if="errors.title" class="card-form__error">{{ errors.title }}</div>
       </label>
 
       <label class="card-form__label">
         Description:
-        <textarea v-model="description" class="card-form__textarea"></textarea>
+        <textarea
+          v-model="description"
+          class="card-form__textarea"
+          @blur="validateFieldHandler('description')"
+        ></textarea>
         <div v-if="errors.description" class="card-form__error">{{ errors.description }}</div>
       </label>
 
       <label class="card-form__label">
         Image URL:
-        <input v-model="imageUrl" type="url" class="card-form__input" />
+        <input
+          v-model="imageUrl"
+          type="url"
+          class="card-form__input"
+          @blur="validateFieldHandler('imageUrl')"
+        />
         <div v-if="errors.imageUrl" class="card-form__error">{{ errors.imageUrl }}</div>
       </label>
 
@@ -29,13 +43,20 @@
           max="5"
           step="0.5"
           class="card-form__input"
+          @blur="validateFieldHandler('rating')"
         />
         <div v-if="errors.rating" class="card-form__error">{{ errors.rating }}</div>
       </label>
 
       <label class="card-form__label">
         Tags (comma separated):
-        <input v-model="tags" type="text" class="card-form__input" placeholder="Action, Drama..." />
+        <input
+          v-model="tags"
+          type="text"
+          class="card-form__input"
+          placeholder="Action, Drama..."
+          @blur="validateFieldHandler('tags')"
+        />
         <div v-if="errors.tags" class="card-form__error">{{ errors.tags }}</div>
       </label>
 
@@ -57,6 +78,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useUiStore } from '@/stores/counter'
+import { validateField } from '@/utils/validateField'
+import type { FormErrors, FormValues } from '@/utils/interface'
 
 export default defineComponent({
   name: 'CardForm',
@@ -80,10 +104,7 @@ export default defineComponent({
     }
   },
   computed: {
-    formError() {
-      return Object.values(this.errors).some((error) => error !== '')
-    },
-    isFormValid(): boolean {
+    isFormValid(): any {
       return (
         this.title.trim() &&
         this.description.trim() &&
@@ -96,54 +117,30 @@ export default defineComponent({
     },
   },
   methods: {
-    validationForm() {
-      let isValid = true
+    validateFieldHandler(field: keyof FormErrors) {
+      const error = validateField(field as keyof FormValues, {
+        title: this.title,
+        description: this.description,
+        imageUrl: this.imageUrl,
+        rating: this.rating,
+        tags: this.tags,
+        notes: this.notes,
+      })
+      this.errors[field] = error
+    },
 
-      // Reset all errors
-      this.errors = {
-        title: '',
-        description: '',
-        imageUrl: '',
-        rating: '',
-        tags: '',
-        notes: '',
-      }
+    validateAllFields() {
+      this.validateFieldHandler('title')
+      this.validateFieldHandler('description')
+      this.validateFieldHandler('imageUrl')
+      this.validateFieldHandler('rating')
+      this.validateFieldHandler('tags')
 
-      if (!this.title.trim()) {
-        this.errors.title = 'El título es obligatorio.'
-        isValid = false
-      }
-
-      if (!this.description.trim()) {
-        this.errors.description = 'La descripción es obligatoria.'
-        isValid = false
-      }
-
-      if (!this.imageUrl.trim()) {
-        this.errors.imageUrl = 'La URL de la imagen es obligatoria.'
-        isValid = false
-      }
-
-      if (!this.rating || this.rating < 0 || this.rating > 5) {
-        this.errors.rating = 'El rating debe estar entre 0 y 5.'
-        isValid = false
-      }
-
-      if (!this.tags.trim()) {
-        this.errors.tags = 'Introduce al menos una etiqueta.'
-        isValid = false
-      }
-
-      return isValid
+      return Object.values(this.errors).every((e) => e === '')
     },
 
     submitForm() {
-      const isValid = this.validationForm()
-
-      if (!isValid) {
-        alert('Por favor corrige los errores del formulario.')
-        return
-      }
+      const isValid = this.validateAllFields()
 
       const newShow = {
         title: this.title,
@@ -154,9 +151,13 @@ export default defineComponent({
         notes: this.notes,
         color: this.color,
       }
-      console.log('New Show:', newShow)
-      this.$emit('submit', newShow)
-      this.resetForm()
+
+      if (isValid) {
+        const ui = useUiStore()
+        ui.hideForm()
+        this.$emit('submit', newShow)
+        this.resetForm()
+      }
     },
 
     resetForm() {
