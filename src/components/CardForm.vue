@@ -78,7 +78,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useUiStore } from '@/stores/counter'
+import { useMovieStore } from '@/stores/movieStore'
 import { validateField } from '@/utils/validateField'
 import type { FormErrors, FormValues } from '@/utils/interface'
 
@@ -153,7 +153,7 @@ export default defineComponent({
       }
 
       if (isValid) {
-        const ui = useUiStore()
+        const ui = useMovieStore()
         ui.hideForm()
         this.$emit('submit', newShow)
         this.resetForm()

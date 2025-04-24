@@ -18,7 +18,7 @@ export const moviesData: Movie[] = [
     description:
       'A high school chemistry teacher turned meth maker partners with a former student to secure his family’s future.',
     image: 'https://storage.googleapis.com/pod_public/1300/251700.jpg',
-    rating: 4.4,
+    rating: 5,
     tags: ['Crime', 'Drama', 'Thriller'],
     notes: 'Season 5',
     color: '#DAF7A6',

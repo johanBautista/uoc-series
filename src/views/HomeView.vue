@@ -9,12 +9,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
 import ListMovies from '@/components/ListMovies.vue'
 import CardForm from '@/components/CardForm.vue'
 import FilterBar from '@/components/FilterBar.vue'
 import type { Movie } from '../utils/interface'
-import { useUiStore } from '@/stores/counter'
+import { useMovieStore } from '@/stores/movieStore'
 
 export default defineComponent({
   name: 'HomeView',
@@ -27,7 +27,7 @@ export default defineComponent({
     return {}
   },
   computed: {
-    ui: () => useUiStore(),
+    ui: () => useMovieStore(),
   },
   methods: {
     handleSubmit(newShow: Movie) {

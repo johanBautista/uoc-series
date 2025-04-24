@@ -47,7 +47,7 @@
         <select v-model="sortBy" class="movie-filter__dropdown">
           <option value="name">Name</option>
           <option value="rating">Rating</option>
-          <option value="rating">Date</option>
+          <option value="date">Date</option>
         </select>
       </label>
 
@@ -64,7 +64,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useUiStore } from '@/stores/counter'
+import { useMovieStore } from '@/stores/movieStore'
 
 export default defineComponent({
   name: 'MovieFilter',
@@ -87,10 +87,11 @@ export default defineComponent({
         'Sci-Fi',
         'Thriller',
       ],
+      ui: useMovieStore(),
     }
   },
   computed: {
-    ui: () => useUiStore(),
+    ui: () => useMovieStore(),
   },
   methods: {
     clearInput() {
@@ -98,6 +99,11 @@ export default defineComponent({
     },
     addNewShow() {
       console.log('Añadir nueva película', this.search)
+    },
+  },
+  watch: {
+    sortBy(newValue) {
+      this.ui.sortBy = newValue
     },
   },
 })

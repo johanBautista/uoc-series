@@ -1,14 +1,15 @@
 <template>
   <div class="board">
-    <CardMovie v-for="movie in showList" :key="movie.id" :movie="movie" />
+    <CardMovie v-for="movie in ui.sortedMoviesBy" :key="movie.id" :movie="movie" />
+
+    {{ ui.sortedMoviesBy.length }} movies
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import CardMovie from './CardMovie.vue'
-import type { Movie } from '@/utils/interface'
-import { moviesData } from '@/utils/data'
+import { useMovieStore } from '@/stores/movieStore'
 
 export default defineComponent({
   name: 'CardBoard',
@@ -17,8 +18,11 @@ export default defineComponent({
   },
   data() {
     return {
-      showList: moviesData as Movie[],
+      ui: useMovieStore(),
     }
+  },
+  created() {
+    this.ui.fetchMovies()
   },
 })
 </script>
