@@ -3,12 +3,12 @@
     <!-- Input y botones -->
     <div class="movie-filter__input-container">
       <input
-        v-model="search"
+        v-model="ui.searchQuery"
         type="text"
         class="movie-filter__input"
         placeholder="Search film..."
       />
-      <button class="movie-filter__button movie-filter__button--clear" @click="clearInput">
+      <button class="movie-filter__button movie-filter__button--clear" @click="ui.clearFilters()">
         Clear
       </button>
       <button
@@ -24,16 +24,16 @@
     <div class="movie-filter__controls">
       <label class="movie-filter__label">
         Tags:
-        <select v-model="selectedGenre" class="movie-filter__dropdown">
+        <select v-model="ui.selectedGenre" class="movie-filter__dropdown">
           <option value="" disabled>Selected option</option>
           <option v-for="genre in genres" :key="genre" :value="genre">{{ genre }}</option>
         </select>
       </label>
 
       <label class="movie-filter__label">
-        Rating: {{ rating }}
+        Rating: {{ ui.rating }}
         <input
-          v-model="rating"
+          v-model="ui.rating"
           type="range"
           min="0"
           max="5"
@@ -44,7 +44,7 @@
 
       <label class="movie-filter__label">
         Sort by:
-        <select v-model="sortBy" class="movie-filter__dropdown">
+        <select v-model="ui.sortBy" class="movie-filter__dropdown">
           <option value="name">Name</option>
           <option value="rating">Rating</option>
           <option value="date">Date</option>
@@ -53,7 +53,7 @@
 
       <label class="movie-filter__label">
         Order:
-        <select v-model="sortDirection" class="movie-filter__dropdown">
+        <select v-model="ui.sortDirection" class="movie-filter__dropdown">
           <option value="asc">Ascendente</option>
           <option value="desc">Descendente</option>
         </select>
@@ -70,11 +70,6 @@ export default defineComponent({
   name: 'MovieFilter',
   data() {
     return {
-      search: '',
-      selectedGenre: '',
-      rating: 0,
-      sortBy: 'name',
-      sortDirection: 'asc',
       genres: [
         'Action',
         'Adventure',
@@ -87,23 +82,26 @@ export default defineComponent({
         'Sci-Fi',
         'Thriller',
       ],
-      ui: useMovieStore(),
     }
   },
   computed: {
     ui: () => useMovieStore(),
   },
-  methods: {
-    clearInput() {
-      this.search = ''
-    },
-    addNewShow() {
-      console.log('Añadir nueva película', this.search)
-    },
-  },
   watch: {
     sortBy(newValue) {
       this.ui.sortBy = newValue
+    },
+    selectedGenre(newValue) {
+      this.ui.selectedGenre = newValue
+    },
+    rating(newValue) {
+      this.ui.rating = newValue
+    },
+    sortDirection(newValue) {
+      this.ui.sortDirection = newValue
+    },
+    searchQuery(newValue) {
+      this.ui.searchQuery = newValue
     },
   },
 })

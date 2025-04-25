@@ -23,9 +23,6 @@ export default defineComponent({
     CardForm,
     FilterBar,
   },
-  data() {
-    return {}
-  },
   computed: {
     ui: () => useMovieStore(),
   },

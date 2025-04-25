@@ -8,6 +8,11 @@ export const useMovieStore = defineStore('ui', {
     isFormActive: false,
     movies: [] as Movie[],
     sortBy: 'name',
+    rating: 0,
+    minRating: 0,
+    selectedGenre: '',
+    searchQuery: '',
+    sortDirection: 'asc',
   }),
   actions: {
     showForm() {
@@ -19,19 +24,54 @@ export const useMovieStore = defineStore('ui', {
     fetchMovies() {
       this.movies = moviesData
     },
+    clearFilters() {
+      this.searchQuery = ''
+      this.selectedGenre = ''
+      this.minRating = 0
+      this.sortBy = 'name'
+      this.sortDirection = 'asc'
+    },
   },
   getters: {
-    sortedMoviesBy: (state) => {
-      return state.movies.sort((a, b) => {
+    filteredMovies: (state) => {
+      let result = state.movies
+
+      // títle
+      if (state.searchQuery.trim()) {
+        result = result.filter((movie) =>
+          movie.title.toLowerCase().includes(state.searchQuery.toLowerCase()),
+        )
+      }
+
+      // genre
+      if (state.selectedGenre) {
+        result = result.filter((movie) => movie.tags.includes(state.selectedGenre))
+      }
+
+      // rating
+      if (state.rating) {
+        result = result.filter((movie) => movie.rating >= state.rating)
+      }
+
+      // sortby
+      result = [...result].sort((a, b) => {
         if (state.sortBy === 'name') {
           return a.title.localeCompare(b.title)
-        } else if (state.sortBy === 'rating') {
+        }
+        if (state.sortBy === 'rating') {
           return b.rating - a.rating
-        } else if (state.sortBy === 'date') {
+        }
+        if (state.sortBy === 'date') {
           return new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
         }
         return 0
       })
+
+      // asc/desc
+      if (state.sortDirection === 'desc') {
+        result.reverse()
+      }
+      return result
     },
   },
 })

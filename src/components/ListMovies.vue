@@ -1,8 +1,6 @@
 <template>
   <div class="board">
-    <CardMovie v-for="movie in ui.sortedMoviesBy" :key="movie.id" :movie="movie" />
-
-    {{ ui.sortedMoviesBy.length }} movies
+    <CardMovie v-for="movie in ui.filteredMovies" :key="movie.id" :movie="movie" />
   </div>
 </template>
 
@@ -16,10 +14,8 @@ export default defineComponent({
   components: {
     CardMovie,
   },
-  data() {
-    return {
-      ui: useMovieStore(),
-    }
+  computed: {
+    ui: () => useMovieStore(),
   },
   created() {
     this.ui.fetchMovies()
