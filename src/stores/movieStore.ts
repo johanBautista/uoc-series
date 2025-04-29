@@ -31,6 +31,16 @@ export const useMovieStore = defineStore('ui', {
       this.sortBy = 'name'
       this.sortDirection = 'asc'
     },
+    addMovie(movie: Omit<Movie, 'id'>) {
+      const newMovie: Movie = {
+        ...movie,
+        id: crypto.randomUUID(),
+      }
+      this.movies.push(newMovie)
+    },
+    removeMovie(id: string) {
+      return (this.movies = this.movies.filter((x) => x.id !== id))
+    },
   },
   getters: {
     filteredMovies: (state) => {

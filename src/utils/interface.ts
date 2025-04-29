@@ -1,8 +1,8 @@
 export interface Movie {
-  id: number
+  id: string
   title: string
   description: string
-  image: string
+  imageUrl: string
   rating: number
   tags: string[]
   notes: string

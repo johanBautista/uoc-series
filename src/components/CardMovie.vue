@@ -1,7 +1,7 @@
 <template>
   <article class="card" :style="{ borderTop: `4px solid ${movie.color}` }">
     <!-- image -->
-    <img :src="movie.image" alt="movie.title" class="cover" />
+    <img :src="movie.imageUrl" alt="movie.title" class="cover" />
     <!-- description -->
     <div>
       <h2 class="info__title">{{ movie.title }}</h2>
@@ -23,6 +23,7 @@
           />
         </span>
       </section>
+      <button class="remove__button" @click="ui.removeMovie(movie.id)">Remove</button>
     </div>
   </article>
 </template>
@@ -30,6 +31,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import type { Movie } from '@/utils/interface'
+import { useMovieStore } from '@/stores/movieStore'
 
 export default defineComponent({
   name: 'MovieCard',
@@ -38,6 +40,9 @@ export default defineComponent({
       type: Object as () => Movie,
       required: true,
     },
+  },
+  computed: {
+    ui: () => useMovieStore(),
   },
 })
 </script>
@@ -54,7 +59,6 @@ export default defineComponent({
   border-top: 10px outset;
   position: relative;
   box-shadow: 10px 10px 11px -6px rgba(0, 0, 0, 0.12);
-  height: 270px;
 }
 
 .cover {
@@ -145,5 +149,18 @@ export default defineComponent({
 
 .full-star {
   color: gold;
+}
+.remove__button {
+  background: rgb(0, 123, 185);
+  margin: 1rem;
+  display: flex;
+  float: inline-end;
+  border: none;
+  border-radius: 3px;
+  padding: 6px 12px;
+  color: white;
+}
+.remove__button:hover {
+  background: rgb(0, 93, 140);
 }
 </style>

@@ -155,7 +155,17 @@ export default defineComponent({
       if (isValid) {
         const ui = useMovieStore()
         ui.hideForm()
-        this.$emit('submit', newShow)
+
+        ui.addMovie({
+          title: this.title,
+          description: this.description,
+          imageUrl: this.imageUrl,
+          rating: this.rating,
+          tags: this.tags.split(',').map((tag) => tag.trim()),
+          notes: this.notes,
+          color: this.color,
+          releaseDate: '',
+        })
         this.resetForm()
       }
     },
