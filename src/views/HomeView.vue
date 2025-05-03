@@ -4,34 +4,17 @@
   </header>
   <main>
     <ListMovies />
-    <CardForm v-if="ui.isFormActive" @submit="handleSubmit" />
+    <CardForm v-if="ui.isFormActive" />
   </main>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import ListMovies from '@/components/ListMovies.vue'
 import CardForm from '@/components/CardForm.vue'
 import FilterBar from '@/components/FilterBar.vue'
-import type { Movie } from '../utils/interface'
 import { useMovieStore } from '@/stores/movieStore'
 
-export default defineComponent({
-  name: 'HomeView',
-  components: {
-    ListMovies,
-    CardForm,
-    FilterBar,
-  },
-  computed: {
-    ui: () => useMovieStore(),
-  },
-  methods: {
-    handleSubmit(newShow: Movie) {
-      console.log('New Show handleSubmit:', newShow)
-    },
-  },
-})
+const ui = useMovieStore()
 </script>
 
 <style scoped>

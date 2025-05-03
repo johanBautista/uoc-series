@@ -4,22 +4,15 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { onMounted } from 'vue'
 import CardMovie from './CardMovie.vue'
 import { useMovieStore } from '@/stores/movieStore'
 
-export default defineComponent({
-  name: 'CardBoard',
-  components: {
-    CardMovie,
-  },
-  computed: {
-    ui: () => useMovieStore(),
-  },
-  created() {
-    this.ui.fetchMovies()
-  },
+const ui = useMovieStore()
+
+onMounted(() => {
+  ui.fetchMovies()
 })
 </script>
 

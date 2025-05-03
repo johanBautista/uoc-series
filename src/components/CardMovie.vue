@@ -28,23 +28,14 @@
   </article>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import type { Movie } from '@/utils/interface'
 import { useMovieStore } from '@/stores/movieStore'
 
-export default defineComponent({
-  name: 'MovieCard',
-  props: {
-    movie: {
-      type: Object as () => Movie,
-      required: true,
-    },
-  },
-  computed: {
-    ui: () => useMovieStore(),
-  },
-})
+defineProps<{
+  movie: Movie
+}>()
+const ui = useMovieStore()
 </script>
 
 <style scoped>

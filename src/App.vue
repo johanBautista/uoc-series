@@ -1,22 +1,7 @@
 <template>
-  <!-- <header>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-    </nav>
-  </header> -->
-
   <RouterView />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    RouterLink,
-    RouterView,
-  },
-})
+<script setup lang="ts">
+import { RouterView } from 'vue-router'
 </script>

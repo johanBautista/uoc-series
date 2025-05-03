@@ -1,12 +1,7 @@
 <template>
   <main>
     <h1>404 NOT FOUND _ PAGE</h1>
+    <!-- PONER IMAGEN ! -->
   </main>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'NotFoundPage',
-})
-</script>
+<script setup lang="ts"></script>
