@@ -1,7 +1,6 @@
-import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Movie } from '@/utils/interface'
-import { moviesData } from '../utils/data'
+import axios from 'axios'
 
 export const useMovieStore = defineStore('ui', {
   state: () => ({
@@ -21,9 +20,6 @@ export const useMovieStore = defineStore('ui', {
     hideForm() {
       this.isFormActive = false
     },
-    fetchMovies() {
-      this.movies = moviesData
-    },
     clearFilters() {
       this.searchQuery = ''
       this.selectedGenre = ''
@@ -31,15 +27,31 @@ export const useMovieStore = defineStore('ui', {
       this.sortBy = 'name'
       this.sortDirection = 'asc'
     },
-    addMovie(movie: Omit<Movie, 'id'>) {
-      const newMovie: Movie = {
-        ...movie,
-        id: crypto.randomUUID(),
+    async fetchMovies() {
+      try {
+        const response = await axios.get<Movie[]>('http://localhost:3000/shows')
+        this.movies = response.data.data
+        return response.data
+      } catch (error) {
+        console.error('Error fetching movies:', error)
       }
-      this.movies.push(newMovie)
     },
-    removeMovie(id: string) {
-      return (this.movies = this.movies.filter((x) => x.id !== id))
+    async addMovie(movie: Omit<Movie, 'id'>) {
+      try {
+        const response = await axios.post<Movie>('http://localhost:3000/show', movie)
+        this.movies.push(response.data.data)
+        return response.data
+      } catch (error) {
+        console.error('Error adding movie:', error)
+      }
+    },
+    async removeMovie(id: string) {
+      try {
+        const response = await axios.delete(`http://localhost:3000/show/${id}`)
+        return response.data
+      } catch (error) {
+        console.error('Error deleting movie:', error)
+      }
     },
   },
   getters: {

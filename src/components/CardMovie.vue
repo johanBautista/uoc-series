@@ -1,7 +1,7 @@
 <template>
   <article class="card" :style="{ borderTop: `4px solid ${movie.color}` }">
     <!-- image -->
-    <img :src="movie.imageUrl" alt="movie.title" class="cover" />
+    <img :src="movie.image" alt="movie.title" class="cover" />
     <!-- description -->
     <div>
       <h2 class="info__title">{{ movie.title }}</h2>
@@ -23,7 +23,7 @@
           />
         </span>
       </section>
-      <button class="remove__button" @click="ui.removeMovie(movie.id)">Remove</button>
+      <button class="remove__button" @click="deleteMovie(movie.id)">Remove</button>
     </div>
   </article>
 </template>
@@ -36,6 +36,9 @@ defineProps<{
   movie: Movie
 }>()
 const ui = useMovieStore()
+const deleteMovie = (id: string) => {
+  ui.removeMovie(id.toString())
+}
 </script>
 
 <style scoped>

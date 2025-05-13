@@ -26,12 +26,12 @@
       <label class="card-form__label">
         Image URL:
         <input
-          v-model="imageUrl"
+          v-model="image"
           type="url"
           class="card-form__input"
-          @blur="validateFieldHandler('imageUrl')"
+          @blur="validateFieldHandler('image')"
         />
-        <div v-if="errors.imageUrl" class="card-form__error">{{ errors.imageUrl }}</div>
+        <div v-if="errors.image" class="card-form__error">{{ errors.image }}</div>
       </label>
 
       <label class="card-form__label">
@@ -88,7 +88,7 @@ export default defineComponent({
     return {
       title: '',
       description: '',
-      imageUrl: '',
+      image: '',
       rating: 0,
       tags: '',
       notes: '',
@@ -96,7 +96,7 @@ export default defineComponent({
       errors: {
         title: '',
         description: '',
-        imageUrl: '',
+        image: '',
         rating: '',
         tags: '',
         notes: '',
@@ -108,7 +108,7 @@ export default defineComponent({
       return (
         this.title.trim() &&
         this.description.trim() &&
-        this.imageUrl.trim() &&
+        this.image.trim() &&
         this.rating >= 0 &&
         this.rating <= 5 &&
         this.tags.trim() &&
@@ -121,7 +121,7 @@ export default defineComponent({
       const error = validateField(field as keyof FormValues, {
         title: this.title,
         description: this.description,
-        imageUrl: this.imageUrl,
+        image: this.image,
         rating: this.rating,
         tags: this.tags,
         notes: this.notes,
@@ -132,7 +132,7 @@ export default defineComponent({
     validateAllFields() {
       this.validateFieldHandler('title')
       this.validateFieldHandler('description')
-      this.validateFieldHandler('imageUrl')
+      this.validateFieldHandler('image')
       this.validateFieldHandler('rating')
       this.validateFieldHandler('tags')
 
@@ -145,7 +145,7 @@ export default defineComponent({
       const newShow = {
         title: this.title,
         description: this.description,
-        imageUrl: this.imageUrl,
+        image: this.image,
         rating: this.rating,
         tags: this.tags.split(',').map((tag) => tag.trim()),
         notes: this.notes,
@@ -156,24 +156,25 @@ export default defineComponent({
         const ui = useMovieStore()
         ui.hideForm()
 
+        const fullDate = new Date().toISOString()
+        const dateOnly = fullDate.split('T')[0]
         ui.addMovie({
           title: this.title,
           description: this.description,
-          imageUrl: this.imageUrl,
+          image: this.image,
           rating: this.rating,
           tags: this.tags.split(',').map((tag) => tag.trim()),
           notes: this.notes,
           color: this.color,
-          releaseDate: '',
+          releaseDate: dateOnly,
         })
-        this.resetForm()
       }
     },
 
     resetForm() {
       this.title = ''
       this.description = ''
-      this.imageUrl = ''
+      this.image = ''
       this.rating = 0
       this.tags = ''
       this.notes = ''

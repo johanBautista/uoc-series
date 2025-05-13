@@ -17,8 +17,8 @@ export function validateField(field: keyof FormValues, values: FormValues): stri
         return 'La descripción debe tener al menos 11 caracteres.'
       break
 
-    case 'imageUrl':
-      if (!values.imageUrl.trim()) return 'La URL de la imagen es obligatoria.'
+    case 'image':
+      if (!values.image.trim()) return 'La URL de la imagen es obligatoria.'
       break
 
     case 'rating':
