@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { Movie } from '@/utils/interface'
 import axios from 'axios'
+import { toast } from 'vue3-toastify'
 
 export const useMovieStore = defineStore('ui', {
   state: () => ({
@@ -40,17 +41,22 @@ export const useMovieStore = defineStore('ui', {
       try {
         const response = await axios.post<Movie>('http://localhost:3000/show', movie)
         this.movies.push(response.data.data)
+        toast.success('Movie added successfully!')
         return response.data
       } catch (error) {
         console.error('Error adding movie:', error)
+        toast.error('Failed to add movie')
       }
     },
     async removeMovie(id: string) {
       try {
         const response = await axios.delete(`http://localhost:3000/show/${id}`)
+        toast.success('Movie deleted successfully!')
+        this.movies = this.movies.filter((movie) => movie.id !== id)
         return response.data
       } catch (error) {
         console.error('Error deleting movie:', error)
+        toast.error('Failed to delete movie')
       }
     },
   },
@@ -67,7 +73,13 @@ export const useMovieStore = defineStore('ui', {
 
       // genre
       if (state.selectedGenre) {
-        result = result.filter((movie) => movie.tags.includes(state.selectedGenre))
+        console.log(state.selectedGenre)
+
+        result = result.filter((movie) => {
+          console.log(movie.tags)
+
+          return movie.tags.includes(state.selectedGenre.toLowerCase())
+        })
       }
 
       // rating
